@@ -161,6 +161,20 @@
     ]
   },
   {
+    "desc": "Create a new pod",
+    "cat": "Creating objects",
+    "shell": [
+      "kubectl create -f my-pod.yaml"
+    ]
+  },
+  {
+    "desc": "Create a new namespace named my-namespace",
+    "cat": "Creating objects",
+    "shell": [
+      "kubectl create namespace my-namespace"
+    ]
+  },
+  {
     "desc": "Start a single instance of nginx",
     "cat": "Creating objects",
     "shell": [
@@ -188,12 +202,18 @@
       "kubectl explain pods"
     ]
   },
-
   {
     "desc": "Delete a pod using the type and name specified in pod.json",
     "cat": "Deleting resources",
     "shell": [
       "kubectl delete -f ./pod.json"
+    ]
+  },
+  {
+    "desc": "Delete a pod",
+    "cat": "Deleting resources",
+    "shell": [
+      "kubectl delete pod my-pod"
     ]
   },
   {
@@ -726,6 +746,13 @@
     "cat": "Viewing and finding resources",
     "shell": [
       "kubectl get pods --all-namespaces"
+    ]
+  },
+  {
+    "desc": "List all namespaces",
+    "cat": "Viewing and finding resources",
+    "shell": [
+      "kubectl get namespaces"
     ]
   },
   {
