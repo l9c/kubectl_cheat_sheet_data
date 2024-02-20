@@ -1,0 +1,927 @@
+[
+  {
+    "desc": "View the current kubeconfig file",
+    "cat": "Context and configuration",
+    "shell": [
+      "kubectl config view"
+    ]
+  },
+  {
+    "desc": "Get the password for the e2e user",
+    "cat": "Context and configuration",
+    "shell": [
+      "kubectl config view -o jsonpath='{.users[?(@.name == \"e2e\")].user.password}'"
+    ]
+  },
+  {
+    "desc": "Display the first user in the kubeconfig",
+    "cat": "Context and configuration",
+    "shell": [
+      "kubectl config view -o jsonpath='{.users[].name}'"
+    ]
+  },
+  {
+    "desc": "Get a list of users in the kubeconfig",
+    "cat": "Context and configuration",
+    "shell": [
+      "kubectl config view -o jsonpath='{.users[*].name}'"
+    ]
+  },
+  {
+    "desc": "Display the list of contexts in the kubeconfig",
+    "cat": "Context and configuration",
+    "shell": [
+      "kubectl config get-contexts"
+    ]
+  },
+  {
+    "desc": "Display the current context in the kubeconfig",
+    "cat": "Context and configuration",
+    "shell": [
+      "kubectl config current-context"
+    ]
+  },
+  {
+    "desc": "Set the default context to my-cluster-name",
+    "cat": "Context and configuration",
+    "shell": [
+      "kubectl config use-context my-cluster-name"
+    ]
+  },
+  {
+    "desc": "Set a cluster entry in the kubeconfig",
+    "cat": "Context and configuration",
+    "shell": [
+      "kubectl config set-cluster my-cluster-name"
+    ]
+  },
+  {
+    "desc": "Configure the URL to a proxy server in the kubeconfig",
+    "cat": "Context and configuration",
+    "shell": [
+      "kubectl config set-cluster my-cluster-name --proxy-url=my-proxy-url"
+    ]
+  },
+  {
+    "desc": "Add a new user to the kubeconfig with basic auth",
+    "cat": "Context and configuration",
+    "shell": [
+      "kubectl config set-credentials kubeuser/foo.kubernetes.com --username=kubeuser --password=kubepassword"
+    ]
+  },
+  {
+    "desc": "Permanently save the namespace for all subsequent kubectl commands",
+    "cat": "Context and configuration",
+    "shell": [
+      "kubectl config set-context --current --namespace=ggckad-s2"
+    ]
+  },
+  {
+    "desc": "Set a context with a specific username and namespace",
+    "cat": "Context and configuration",
+    "shell": [
+      "kubectl config set-context gce --user=cluster-admin --namespace=foo && kubectl config use-context gce"
+    ]
+  },
+  {
+    "desc": "Delete user foo from the kubeconfig",
+    "cat": "Context and configuration",
+    "shell": [
+      "kubectl config unset users.foo"
+    ]
+  },
+  {
+    "desc": "Copy /tmp/foo_dir local directory to /tmp/bar_dir in a remote pod in the current namespace",
+    "cat": "Copying files and directories",
+    "shell": [
+      "kubectl cp /tmp/foo_dir my-pod:/tmp/bar_dir"
+    ]
+  },
+  {
+    "desc": "Copy /tmp/foo local file to /tmp/bar in a remote pod in a specific container",
+    "cat": "Copying files and directories",
+    "shell": [
+      "kubectl cp /tmp/foo my-pod:/tmp/bar -c my-container"
+    ]
+  },
+  {
+    "desc": "Copy /tmp/foo local file to /tmp/bar in a remote pod in namespace my-namespace",
+    "cat": "Copying files and directories",
+    "shell": [
+      "kubectl cp /tmp/foo my-namespace/my-pod:/tmp/bar"
+    ]
+  },
+  {
+    "desc": "Copy /tmp/foo from a remote pod to /tmp/bar locally",
+    "cat": "Copying files and directories",
+    "shell": [
+      "kubectl cp my-namespace/my-pod:/tmp/foo /tmp/bar"
+    ]
+  },
+  {
+    "desc": "Copy /tmp/foo local file to /tmp/bar in a remote pod in namespace my-namespace",
+    "cat": "Copying files and directories",
+    "shell": [
+      "tar cf - /tmp/foo | kubectl exec -i -n my-namespace my-pod -- tar xf - -C /tmp/bar"
+    ]
+  },
+  {
+    "desc": "Copy /tmp/foo from a remote pod to /tmp/bar locally",
+    "cat": "Copying files and directories",
+    "shell": [
+      "kubectl exec -n my-namespace my-pod -- tar cf - /tmp/foo | tar xf - -C /tmp/bar"
+    ]
+  },
+  {
+    "desc": "Create resource(s)",
+    "cat": "Creating objects",
+    "shell": [
+      "kubectl apply -f ./my-manifest.yaml"
+    ]
+  },
+  {
+    "desc": "Create from multiple files",
+    "cat": "Creating objects",
+    "shell": [
+      "kubectl apply -f ./my1.yaml -f ./my2.yaml"
+    ]
+  },
+  {
+    "desc": "Create resource(s) in all manifest files in dir",
+    "cat": "Creating objects",
+    "shell": [
+      "kubectl apply -f ./dir"
+    ]
+  },
+  {
+    "desc": "Create resource(s) from url (Note: this is an example domain and does not contain a valid manifest)",
+    "cat": "Creating objects",
+    "shell": [
+      "kubectl apply -f https://example.com/manifest.yaml"
+    ]
+  },
+  {
+    "desc": "Start a single instance of nginx",
+    "cat": "Creating objects",
+    "shell": [
+      "kubectl create deployment nginx --image=nginx"
+    ]
+  },
+  {
+    "desc": "Create a Job which prints 'Hello World'",
+    "cat": "Creating objects",
+    "shell": [
+      "kubectl create job hello --image=busybox:1.28 -- echo 'Hello World'"
+    ]
+  },
+  {
+    "desc": "Create a CronJob that prints 'Hello World' every minute",
+    "cat": "Creating objects",
+    "shell": [
+      "kubectl create cronjob hello --image=busybox:1.28 --schedule='*/1 * * * *' -- echo 'Hello World'"
+    ]
+  },
+  {
+    "desc": "Get the documentation for pod manifests",
+    "cat": "Creating objects",
+    "shell": [
+      "kubectl explain pods"
+    ]
+  },
+
+  {
+    "desc": "Delete a pod using the type and name specified in pod.json",
+    "cat": "Deleting resources",
+    "shell": [
+      "kubectl delete -f ./pod.json"
+    ]
+  },
+  {
+    "desc": "Delete a pod with no grace period",
+    "cat": "Deleting resources",
+    "shell": [
+      "kubectl delete pod unwanted --now"
+    ]
+  },
+  {
+    "desc": "Delete pods and services with same names \"baz\" and \"foo\"",
+    "cat": "Deleting resources",
+    "shell": [
+      "kubectl delete pod,service baz foo"
+    ]
+  },
+  {
+    "desc": "Delete pods and services with label name=myLabel",
+    "cat": "Deleting resources",
+    "shell": [
+      "kubectl delete pods,services -l name=myLabel"
+    ]
+  },
+  {
+    "desc": "Delete all pods and services in namespace my-ns",
+    "cat": "Deleting resources",
+    "shell": [
+      "kubectl -n my-ns delete pod,svc --all"
+    ]
+  },
+  {
+    "desc": "Delete all pods matching the awk pattern1 or pattern2",
+    "cat": "Deleting resources",
+    "shell": [
+      "kubectl get pods  -n mynamespace --no-headers=true | awk '/pattern1|pattern2/{print $1}' | xargs  kubectl delete -n mynamespace pod"
+    ]
+  },
+  {
+    "desc": "Edit the service named docker-registry",
+    "cat": "Editing resources",
+    "shell": [
+      "kubectl edit svc/docker-registry"
+    ]
+  },
+  {
+    "desc": "Use an alternative editor to edit the service named docker-registry",
+    "cat": "Editing resources",
+    "shell": [
+      "KUBE_EDITOR=\"nano\" kubectl edit svc/docker-registry"
+    ]
+  },
+  {
+    "desc": "Dump Pod logs for a Deployment (single-container case)",
+    "cat": "Interacting with Deployments and Services",
+    "shell": [
+      "kubectl logs deploy/my-deployment"
+    ]
+  },
+  {
+    "desc": "Dump Pod logs for a Deployment (multi-container case)",
+    "cat": "Interacting with Deployments and Services",
+    "shell": [
+      "kubectl logs deploy/my-deployment -c my-container"
+    ]
+  },
+  {
+    "desc": "Listen on local port 5000 and forward to port 5000 on Service backend",
+    "cat": "Interacting with Deployments and Services",
+    "shell": [
+      "kubectl port-forward svc/my-service 5000"
+    ]
+  },
+  {
+    "desc": "Listen on local port 5000 and forward to Service target port with name <my-service-port>",
+    "cat": "Interacting with Deployments and Services",
+    "shell": [
+      "kubectl port-forward svc/my-service 5000:my-service-port"
+    ]
+  },
+  {
+    "desc": "Listen on local port 5000 and forward to port 6000 on a Pod created by <my-deployment>",
+    "cat": "Interacting with Deployments and Services",
+    "shell": [
+      "kubectl port-forward deploy/my-deployment 5000:6000"
+    ]
+  },
+  {
+    "desc": "Run command in first Pod and first container in Deployment (single- or multi-container cases)",
+    "cat": "Interacting with Deployments and Services",
+    "shell": [
+      "kubectl exec deploy/my-deployment -- ls"
+    ]
+  },
+  {
+    "desc": "Mark my-node as unschedulable",
+    "cat": "Interacting with Nodes and cluster",
+    "shell": [
+      "kubectl cordon my-node"
+    ]
+  },
+  {
+    "desc": "Drain my-node in preparation for maintenance",
+    "cat": "Interacting with Nodes and cluster",
+    "shell": [
+      "kubectl drain my-node"
+    ]
+  },
+  {
+    "desc": "Mark my-node as schedulable",
+    "cat": "Interacting with Nodes and cluster",
+    "shell": [
+      "kubectl uncordon my-node"
+    ]
+  },
+  {
+    "desc": "Show metrics for a given node",
+    "cat": "Interacting with Nodes and cluster",
+    "shell": [
+      "kubectl top node my-node"
+    ]
+  },
+  {
+    "desc": "Display addresses of the master and services",
+    "cat": "Interacting with Nodes and cluster",
+    "shell": [
+      "kubectl cluster-info"
+    ]
+  },
+  {
+    "desc": "Dump current cluster state to stdout",
+    "cat": "Interacting with Nodes and cluster",
+    "shell": [
+      "kubectl cluster-info dump"
+    ]
+  },
+  {
+    "desc": "Dump current cluster state to /path/to/cluster-state",
+    "cat": "Interacting with Nodes and cluster",
+    "shell": [
+      "kubectl cluster-info dump --output-directory=/path/to/cluster-state"
+    ]
+  },
+  {
+    "desc": "View existing taints on which exist on current nodes.",
+    "cat": "Interacting with Nodes and cluster",
+    "shell": [
+      "kubectl get nodes -o='custom-columns=NodeName:.metadata.name,TaintKey:.spec.taints[*].key,TaintValue:.spec.taints[*].value,TaintEffect:.spec.taints[*].effect'"
+    ]
+  },
+  {
+    "desc": "If a taint with that key and effect already exists, its value is replaced as specified.",
+    "cat": "Interacting with Nodes and cluster",
+    "shell": [
+      "kubectl taint nodes foo dedicated=special-user:NoSchedule"
+    ]
+  },
+  {
+    "desc": "Dump pod logs (stdout)",
+    "cat": "Interacting with running Pods",
+    "shell": [
+      "kubectl logs my-pod"
+    ]
+  },
+  {
+    "desc": "Dump pod logs, with label name=myLabel (stdout)",
+    "cat": "Interacting with running Pods",
+    "shell": [
+      "kubectl logs -l name=myLabel"
+    ]
+  },
+  {
+    "desc": "Dump pod logs (stdout) for a previous instantiation of a container",
+    "cat": "Interacting with running Pods",
+    "shell": [
+      "kubectl logs my-pod --previous"
+    ]
+  },
+  {
+    "desc": "Dump pod container logs (stdout, multi-container case)",
+    "cat": "Interacting with running Pods",
+    "shell": [
+      "kubectl logs my-pod -c my-container"
+    ]
+  },
+  {
+    "desc": "Dump pod container logs, with label name=myLabel (stdout)",
+    "cat": "Interacting with running Pods",
+    "shell": [
+      "kubectl logs -l name=myLabel -c my-container"
+    ]
+  },
+  {
+    "desc": "Dump pod container logs (stdout, multi-container case) for a previous instantiation of a container",
+    "cat": "Interacting with running Pods",
+    "shell": [
+      "kubectl logs my-pod -c my-container --previous"
+    ]
+  },
+  {
+    "desc": "Stream pod logs (stdout)",
+    "cat": "Interacting with running Pods",
+    "shell": [
+      "kubectl logs -f my-pod"
+    ]
+  },
+  {
+    "desc": "Stream pod container logs (stdout, multi-container case)",
+    "cat": "Interacting with running Pods",
+    "shell": [
+      "kubectl logs -f my-pod -c my-container"
+    ]
+  },
+  {
+    "desc": "Stream all pods logs with label name=myLabel (stdout)",
+    "cat": "Interacting with running Pods",
+    "shell": [
+      "kubectl logs -f -l name=myLabel --all-containers"
+    ]
+  },
+  {
+    "desc": "Run pod as interactive shell",
+    "cat": "Interacting with running Pods",
+    "shell": [
+      "kubectl run -i --tty busybox --image=busybox:1.28 -- sh"
+    ]
+  },
+  {
+    "desc": "Start a single instance of nginx pod in the namespace of mynamespace",
+    "cat": "Interacting with running Pods",
+    "shell": [
+      "kubectl run nginx --image=nginx -n mynamespace"
+    ]
+  },
+  {
+    "desc": "Generate spec for running pod nginx and write it into a file called pod.yaml",
+    "cat": "Interacting with running Pods",
+    "shell": [
+      "kubectl run nginx --image=nginx --dry-run=client -o yaml > pod.yaml"
+    ]
+  },
+  {
+    "desc": "Attach to Running Container",
+    "cat": "Interacting with running Pods",
+    "shell": [
+      "kubectl attach my-pod -i"
+    ]
+  },
+  {
+    "desc": "Listen on port 5000 on the local machine and forward to port 6000 on my-pod",
+    "cat": "Interacting with running Pods",
+    "shell": [
+      "kubectl port-forward my-pod 5000:6000"
+    ]
+  },
+  {
+    "desc": "Run command in existing pod (1 container case)",
+    "cat": "Interacting with running Pods",
+    "shell": [
+      "kubectl exec my-pod -- ls /"
+    ]
+  },
+  {
+    "desc": "Interactive shell access to a running pod (1 container case)",
+    "cat": "Interacting with running Pods",
+    "shell": [
+      "kubectl exec --stdin --tty my-pod -- /bin/sh"
+    ]
+  },
+  {
+    "desc": "Run command in existing pod (multi-container case)",
+    "cat": "Interacting with running Pods",
+    "shell": [
+      "kubectl exec my-pod -c my-container -- ls /"
+    ]
+  },
+  {
+    "desc": "Show metrics for a given pod and its containers",
+    "cat": "Interacting with running Pods",
+    "shell": [
+      "kubectl top pod POD_NAME --containers"
+    ]
+  },
+  {
+    "desc": "Show metrics for a given pod and sort it by 'cpu' or 'memory'",
+    "cat": "Interacting with running Pods",
+    "shell": [
+      "kubectl top pod POD_NAME --sort-by=cpu"
+    ]
+  },
+  {
+    "desc": "Partially update a node",
+    "cat": "Patching resources",
+    "shell": [
+      "kubectl patch node k8s-node-1 -p '{\"spec\":{\"unschedulable\":true}}'"
+    ]
+  },
+  {
+    "desc": "Update a container's image; spec.containers[*].name is required because it's a merge key",
+    "cat": "Patching resources",
+    "shell": [
+      "kubectl patch pod valid-pod -p '{\"spec\":{\"containers\":[{\"name\":\"kubernetes-serve-hostname\",\"image\":\"new image\"}]}}'"
+    ]
+  },
+  {
+    "desc": "Update a container's image using a json patch with positional arrays",
+    "cat": "Patching resources",
+    "shell": [
+      "kubectl patch pod valid-pod --type='json' -p='[{\"op\": \"replace\", \"path\": \"/spec/containers/0/image\", \"value\":\"new image\"}]'"
+    ]
+  },
+  {
+    "desc": "Disable a deployment livenessProbe using a json patch with positional arrays",
+    "cat": "Patching resources",
+    "shell": [
+      "kubectl patch deployment valid-deployment  --type json   -p='[{\"op\": \"remove\", \"path\": \"/spec/template/spec/containers/0/livenessProbe\"}]'"
+    ]
+  },
+  {
+    "desc": "Add a new element to a positional array",
+    "cat": "Patching resources",
+    "shell": [
+      "kubectl patch sa default --type='json' -p='[{\"op\": \"add\", \"path\": \"/secrets/1\", \"value\": {\"name\": \"whatever\" } }]'"
+    ]
+  },
+  {
+    "desc": "Update a deployment's replica count by patching its scale subresource",
+    "cat": "Patching resources",
+    "shell": [
+      "kubectl patch deployment nginx-deployment --subresource='scale' --type='merge' -p '{\"spec\":{\"replicas\":2}}'"
+    ]
+  },
+  {
+    "desc": "List all available resources in the cluster",
+    "cat": "Resource types",
+    "shell": [
+      "kubectl api-resources"
+    ]
+  },
+  {
+    "desc": "List all namespaced resources",
+    "cat": "Resource types",
+    "shell": [
+      "kubectl api-resources --namespaced=true"
+    ]
+  },
+  {
+    "desc": "List all non-namespaced resources",
+    "cat": "Resource types",
+    "shell": [
+      "kubectl api-resources --namespaced=false"
+    ]
+  },
+  {
+    "desc": "List all resources with simple output (only the resource name)",
+    "cat": "Resource types",
+    "shell": [
+      "kubectl api-resources -o name"
+    ]
+  },
+  {
+    "desc": "List all resources with expanded (aka 'wide') output",
+    "cat": "Resource types",
+    "shell": [
+      "kubectl api-resources -o wide"
+    ]
+  },
+  {
+    "desc": "List all resources that support the 'list' and 'get' request verbs",
+    "cat": "Resource types",
+    "shell": [
+      "kubectl api-resources --verbs=list,get"
+    ]
+  },
+  {
+    "desc": "List all resources in the 'extensions' API group",
+    "cat": "Resource types",
+    "shell": [
+      "kubectl api-resources --api-group=extensions"
+    ]
+  },
+  {
+    "desc": "Scale a replicaset named 'foo' to 3",
+    "cat": "Scaling resources",
+    "shell": [
+      "kubectl scale --replicas=3 rs/foo"
+    ]
+  },
+  {
+    "desc": "Scale a resource specified in \"foo.yaml\" to 3",
+    "cat": "Scaling resources",
+    "shell": [
+      "kubectl scale --replicas=3 -f foo.yaml"
+    ]
+  },
+  {
+    "desc": "If the deployment named mysql's current size is 2, scale mysql to 3",
+    "cat": "Scaling resources",
+    "shell": [
+      "kubectl scale --current-replicas=2 --replicas=3 deployment/mysql"
+    ]
+  },
+  {
+    "desc": "Scale multiple replication controllers",
+    "cat": "Scaling resources",
+    "shell": [
+      "kubectl scale --replicas=5 rc/foo rc/bar rc/baz"
+    ]
+  },
+  {
+    "desc": "Rolling update \"www\" containers of \"frontend\" deployment, updating the image",
+    "cat": "Updating resources",
+    "shell": [
+      "kubectl set image deployment/frontend www=image:v2"
+    ]
+  },
+  {
+    "desc": "Check the history of deployments including the revision",
+    "cat": "Updating resources",
+    "shell": [
+      "kubectl rollout history deployment/frontend"
+    ]
+  },
+  {
+    "desc": "Rollback to the previous deployment",
+    "cat": "Updating resources",
+    "shell": [
+      "kubectl rollout undo deployment/frontend"
+    ]
+  },
+  {
+    "desc": "Rollback to a specific revision",
+    "cat": "Updating resources",
+    "shell": [
+      "kubectl rollout undo deployment/frontend --to-revision=2"
+    ]
+  },
+  {
+    "desc": "Watch rolling update status of \"frontend\" deployment until completion",
+    "cat": "Updating resources",
+    "shell": [
+      "kubectl rollout status -w deployment/frontend"
+    ]
+  },
+  {
+    "desc": "Rolling restart of the \"frontend\" deployment",
+    "cat": "Updating resources",
+    "shell": [
+      "kubectl rollout restart deployment/frontend"
+    ]
+  },
+  {
+    "desc": "Replace a pod based on the JSON passed into stdin",
+    "cat": "Updating resources",
+    "shell": [
+      "cat pod.json | kubectl replace -f -"
+    ]
+  },
+  {
+    "desc": "Force replace, delete and then re-create the resource. Will cause a service outage.",
+    "cat": "Updating resources",
+    "shell": [
+      "kubectl replace --force -f ./pod.json"
+    ]
+  },
+  {
+    "desc": "Create a service for a replicated nginx, which serves on port 80 and connects to the containers on port 8000",
+    "cat": "Updating resources",
+    "shell": [
+      "kubectl expose rc nginx --port=80 --target-port=8000"
+    ]
+  },
+  {
+    "desc": "Update a single-container pod's image version (tag) to v4",
+    "cat": "Updating resources",
+    "shell": [
+      "kubectl get pod mypod -o yaml | sed 's/\\(image: myimage\\):.*$/\\1:v4/' | kubectl replace -f -"
+    ]
+  },
+  {
+    "desc": "Add a Label",
+    "cat": "Updating resources",
+    "shell": [
+      "kubectl label pods my-pod new-label=awesome"
+    ]
+  },
+  {
+    "desc": "Remove a label",
+    "cat": "Updating resources",
+    "shell": [
+      "kubectl label pods my-pod new-label-"
+    ]
+  },
+  {
+    "desc": "Overwrite an existing value",
+    "cat": "Updating resources",
+    "shell": [
+      "kubectl label pods my-pod new-label=new-value --overwrite"
+    ]
+  },
+  {
+    "desc": "Add an annotation",
+    "cat": "Updating resources",
+    "shell": [
+      "kubectl annotate pods my-pod icon-url=http://goo.gl/XXBTWq"
+    ]
+  },
+  {
+    "desc": "Remove annotation",
+    "cat": "Updating resources",
+    "shell": [
+      "kubectl annotate pods my-pod icon-url-"
+    ]
+  },
+  {
+    "desc": "Auto scale a deployment \"foo\"",
+    "cat": "Updating resources",
+    "shell": [
+      "kubectl autoscale deployment foo --min=2 --max=10"
+    ]
+  },
+  {
+    "desc": "List all services in the namespace",
+    "cat": "Viewing and finding resources",
+    "shell": [
+      "kubectl get services"
+    ]
+  },
+  {
+    "desc": "List all pods in all namespaces",
+    "cat": "Viewing and finding resources",
+    "shell": [
+      "kubectl get pods --all-namespaces"
+    ]
+  },
+  {
+    "desc": "List all pods in the current namespace, with more details",
+    "cat": "Viewing and finding resources",
+    "shell": [
+      "kubectl get pods -o wide"
+    ]
+  },
+  {
+    "desc": "List a particular deployment",
+    "cat": "Viewing and finding resources",
+    "shell": [
+      "kubectl get deployment my-dep"
+    ]
+  },
+  {
+    "desc": "List all pods in the namespace",
+    "cat": "Viewing and finding resources",
+    "shell": [
+      "kubectl get pods"
+    ]
+  },
+  {
+    "desc": "Get a pod's YAML",
+    "cat": "Viewing and finding resources",
+    "shell": [
+      "kubectl get pod my-pod -o yaml"
+    ]
+  },
+  {
+    "desc": "Describe nodes with verbose output",
+    "cat": "Viewing and finding resources",
+    "shell": [
+      "kubectl describe nodes my-node"
+    ]
+  },
+  {
+    "desc": "Describe pods with verbose output",
+    "cat": "Viewing and finding resources",
+    "shell": [
+      "kubectl describe pods my-pod"
+    ]
+  },
+  {
+    "desc": "List Services Sorted by Name",
+    "cat": "Viewing and finding resources",
+    "shell": [
+      "kubectl get services --sort-by=.metadata.name"
+    ]
+  },
+  {
+    "desc": "List pods Sorted by Restart Count",
+    "cat": "Viewing and finding resources",
+    "shell": [
+      "kubectl get pods --sort-by='.status.containerStatuses[0].restartCount'"
+    ]
+  },
+  {
+    "desc": "List PersistentVolumes sorted by capacity",
+    "cat": "Viewing and finding resources",
+    "shell": [
+      "kubectl get pv --sort-by=.spec.capacity.storage"
+    ]
+  },
+  {
+    "desc": "Get the version label of all pods with label app=cassandra",
+    "cat": "Viewing and finding resources",
+    "shell": [
+      "kubectl get pods --selector=app=cassandra -o jsonpath='{.items[*].metadata.labels.version}'"
+    ]
+  },
+  {
+    "desc": "Retrieve the value of a key with dots, e.g. 'ca.crt'",
+    "cat": "Viewing and finding resources",
+    "shell": [
+      "kubectl get configmap myconfig -o jsonpath='{.data.ca\\.crt}'"
+    ]
+  },
+  {
+    "desc": "Retrieve a base64 encoded value with dashes instead of underscores.",
+    "cat": "Viewing and finding resources",
+    "shell": [
+      "kubectl get secret my-secret --template='{{index .data \"key-name-with-dashes\"}}'"
+    ]
+  },
+  {
+    "desc": "Get all worker nodes (use a selector to exclude results that have a label named 'node-role.kubernetes.io/control-plane')",
+    "cat": "Viewing and finding resources",
+    "shell": [
+      "kubectl get node --selector='!node-role.kubernetes.io/control-plane'"
+    ]
+  },
+  {
+    "desc": "Get all running pods in the namespace",
+    "cat": "Viewing and finding resources",
+    "shell": [
+      "kubectl get pods --field-selector=status.phase=Running"
+    ]
+  },
+  {
+    "desc": "Get ExternalIPs of all nodes",
+    "cat": "Viewing and finding resources",
+    "shell": [
+      "kubectl get nodes -o jsonpath='{.items[*].status.addresses[?(@.type==\"ExternalIP\")].address}'"
+    ]
+  },
+  {
+    "desc": "Show labels for all pods (or any other Kubernetes object that supports labelling)",
+    "cat": "Viewing and finding resources",
+    "shell": [
+      "kubectl get pods --show-labels"
+    ]
+  },
+  {
+    "desc": "Check which nodes are ready",
+    "cat": "Viewing and finding resources",
+    "shell": [
+      "JSONPATH='{range .items[*]}{@.metadata.name}:{range @.status.conditions[*]}{@.type}={@.status};{end}{end}' && kubectl get nodes -o jsonpath=\"$JSONPATH\" | grep \"Ready=True\""
+    ]
+  },
+  {
+    "desc": "Check which nodes are ready with custom-columns",
+    "cat": "Viewing and finding resources",
+    "shell": [
+      "kubectl get node -o custom-columns='NODE_NAME:.metadata.name,STATUS:.status.conditions[?(@.type==\"Ready\")].status'"
+    ]
+  },
+  {
+    "desc": "Output decoded secrets without external tools",
+    "cat": "Viewing and finding resources",
+    "shell": [
+      "kubectl get secret my-secret -o go-template='{{range $k,$v := .data}}{{\"### \"}}{{$k}}{{\"\n\"}}{{$v|base64decode}}{{\"\n\n\"}}{{end}}'"
+    ]
+  },
+  {
+    "desc": "List all Secrets currently in use by a pod",
+    "cat": "Viewing and finding resources",
+    "shell": [
+      "kubectl get pods -o json | jq '.items[].spec.containers[].env[]?.valueFrom.secretKeyRef.name' | grep -v null | sort | uniq"
+    ]
+  },
+  {
+    "desc": "List all containerIDs of initContainer of all pods",
+    "cat": "Viewing and finding resources",
+    "shell": [
+      "kubectl get pods --all-namespaces -o jsonpath='{range .items[*].status.initContainerStatuses[*]}{.containerID}{\"\n\"}{end}' | cut -d/ -f3"
+    ]
+  },
+  {
+    "desc": "List Events sorted by timestamp",
+    "cat": "Viewing and finding resources",
+    "shell": [
+      "kubectl get events --sort-by=.metadata.creationTimestamp"
+    ]
+  },
+  {
+    "desc": "List all warning events",
+    "cat": "Viewing and finding resources",
+    "shell": [
+      "kubectl events --types=Warning"
+    ]
+  },
+  {
+    "desc": "Compares the current state of the cluster against the state that the cluster would be in if the manifest was applied.",
+    "cat": "Viewing and finding resources",
+    "shell": [
+      "kubectl diff -f ./my-manifest.yaml"
+    ]
+  },
+  {
+    "desc": "Produce a period-delimited tree of all keys returned for nodes",
+    "cat": "Viewing and finding resources",
+    "shell": [
+      "kubectl get nodes -o json | jq -c 'paths|join(\".\")'"
+    ]
+  },
+  {
+    "desc": "Produce a period-delimited tree of all keys returned for pods, etc",
+    "cat": "Viewing and finding resources",
+    "shell": [
+      "kubectl get pods -o json | jq -c 'paths|join(\".\")'"
+    ]
+  },
+  {
+    "desc": "Produce ENV for all pods, assuming you have a default container for the pods, default namespace and the `env` command is supported",
+    "cat": "Viewing and finding resources",
+    "shell": [
+      "for pod in $(kubectl get po --output=jsonpath={.items..metadata.name}); do echo $pod && kubectl exec -it $pod -- env; done"
+    ]
+  },
+  {
+    "desc": "Get a deployment's status subresource",
+    "cat": "Viewing and finding resources",
+    "shell": [
+      "kubectl get deployment nginx-deployment --subresource=status"
+    ]
+  }
+]

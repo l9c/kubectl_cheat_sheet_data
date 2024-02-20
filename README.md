@@ -1,4 +1,4 @@
-# docker_cheat_sheet_data
-docker cheat data for [dockercheatsheet.com](https://dockercheatsheet.com)
+# kubectl_cheat_sheet_data
+kubectl data for [kubectlcheatsheet.com](https://kubectlcheatsheet.com)
 
 Pull Requests Welcome
